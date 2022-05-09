@@ -2,7 +2,7 @@ import aeonics.data.*;
 import aeonics.util.*;
 import java.util.function.Supplier;
 
-public class Function extends Item.Abstract implements Regress, Supplier<Regress>
+public class RegressFunction extends Item.Abstract implements Regress, Supplier<Regress>
 {
 	public Regress get()
 	{
