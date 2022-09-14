@@ -4,13 +4,22 @@ import java.util.function.Supplier;
 
 public class EgressFunction extends Item.Abstract implements Egress, Supplier<Egress>
 {
-	public Egress get()
-	{
-		Function f = new Function();
-		f.decode(Data.emptyMap().put("name", "Function name"));
-		return f;
-	}
+	/**
+	 * This getter lets you build or set parameters for your Egress handler.
+	 * In this simple case, we just return <code>this</code>.
+	 *
+	 * @return a valid Egress
+	 */
+	public Egress get() { return this; }
 	
+	/**
+	 * This is a terminal operation.
+	 * Do whatever you need with the input message.
+	 *
+	 * @param message the input message
+	 * @throws RuntimeException if anything goes wrong. The message will be discarded
+	 *         with the exception's message for explanation.
+	 */
 	public void accept(Message message)
 	{
 		// YOUR CODE HERE

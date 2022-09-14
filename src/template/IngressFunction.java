@@ -5,21 +5,44 @@ import java.util.function.Supplier;
 
 public class IngressFunction extends BasicIngress implements Supplier<Ingress>
 {
-	public Ingress get()
-	{
-		Function f = new Function();
-		f.decode(Data.emptyMap()
-			.put("name", "Function name")
-			.put("topic", "[name of topic to publish in]")
-		);
-		return f;
-	}
+	/**
+	 * This getter lets you build or set parameters for your Ingress handler.
+	 * In this simple case, we just return <code>this</code>.
+	 *
+	 * @return a valid Ingress
+	 */
+	public Ingress get() { return this; }
 	
-	public Message get()
+	/**
+	 * This method is called to initialize stuff.
+	 * Example: open a network connection.
+	 * (you may remove this method if you dont need it)
+	 */
+	public void beforeStart() { }
+	
+	/**
+	 * This method is called to cleanup stuff.
+	 * Example: close a network connection.
+	 * (you may remove this method if you dont need it)
+	 */
+	public void afterStop() { }
+	
+	/**
+	 * This method emits messages out of the blue.
+	 * This method is called in an infinite loop, so it is your responsibility
+	 * to <code>sleep()</code> or <code>wait()</code> as required.
+	 *
+	 * Example: read from the network
+	 *
+	 * @return Return a valid Message instance to inject in the system, or
+	 *         <code>null</code> if there is nothing going on.
+	 */
+	public Message get() throws InterruptedException
 	{
 		// YOUR CODE HERE
-		Message message = Factory.of(Message.class).produce(Message.class, Data.empty());
-		message.put("key", "value");
+		Thread.sleep(1000);
+		Message message = new Message();
+		message.put("time", System.currentTimeMillis());
 		return message;
 	}
 }
